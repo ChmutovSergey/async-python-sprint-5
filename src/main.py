@@ -6,6 +6,10 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 
+from api.v1 import auth, base
+from config.config import settings
+from config.logger import logger
+
 app = FastAPI(
     title=settings.PROJECT_NAME,
     default_response_class=ORJSONResponse,

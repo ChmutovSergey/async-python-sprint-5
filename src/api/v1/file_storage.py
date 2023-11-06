@@ -1,21 +1,19 @@
 import os
 import shutil
 import uuid
-from typing import Any, List
+from typing import List
 
-from fastapi import APIRouter, Depends, UploadFile, File
+from fastapi import APIRouter, Depends, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.responses import FileResponse
 
 from src.config.config import settings
 from src.db.db import get_session
 from src.helpers.raising_http_excp import RaiseHttpException
-from src.helpers.utils import calculate_file_size
 from src.models import User
 from src.schemas.file import FileCreate, FileInDBBase
 from src.services.file import file_crud
 from src.services.user_manager import current_active_user
-from pathlib import Path, PurePath
 
 storage_router = APIRouter(prefix='/file', tags=['File storage'])
 
@@ -51,7 +49,6 @@ async def get_files(
         db: AsyncSession = Depends(get_session),
         user: User = Depends(current_active_user)
 ):
-
     query = await file_crud.get_multi(db=db, created_by=str(user.id))
     RaiseHttpException.check_is_exist(query)
 
@@ -80,9 +77,8 @@ async def usage_memory(
         db: AsyncSession = Depends(get_session),
         user: User = Depends(current_active_user)
 ):
+    # query1 = await file_crud.get_multi(db=db, created_by=str(user.id))
+    query = await file_crud.usage_memory(db=db, created_by=str(user.id))
+    # RaiseHttpException.check_is_exist(query)
 
-    query = await file_crud.get_multi(db=db, created_by=str(user.id))
-    RaiseHttpException.check_is_exist(query)
-
-    return {'files': calculate_file_size(query)}
-
+    return {'files': query}

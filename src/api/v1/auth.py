@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
+
 from src.schemas.user import UserRead, UserCreate, UserUpdate
 from src.services.user_manager import fastapi_users_router, auth_backend
 
