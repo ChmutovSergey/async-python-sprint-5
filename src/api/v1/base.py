@@ -1,7 +1,7 @@
 import datetime
 import sys
-import asyncpg  # type: ignore
 
+import asyncpg  # type: ignore
 from fastapi import APIRouter, Depends
 from sqlalchemy import exc
 from sqlalchemy.orm import Session

@@ -1,13 +1,9 @@
-from src.schemas.file import FileCreate
-
-
-from typing import List, Optional
-
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import and_, select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.models import FileModel
+from src.schemas.file import FileCreate
 
 
 class RepositoryFile:

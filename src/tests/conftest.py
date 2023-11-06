@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 from dataclasses import dataclass
 from functools import cached_property
 from typing import AsyncGenerator
@@ -7,17 +8,13 @@ import pytest
 import pytest_asyncio
 from sqlalchemy import select, text
 from sqlalchemy.engine import URL, make_url
-from sqlalchemy.ext.asyncio import (AsyncEngine, AsyncSession,
-                                    create_async_engine)
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 from sqlalchemy.orm import DeclarativeMeta
 
 from src.config.config import settings
 from src.db.db import create_sessionmaker, get_session
 from src.main import app
 from src.models import Base, get_user_db, FileModel
-
-import contextlib
-
 from src.schemas.user import UserCreate
 from src.services.user_manager import get_user_manager, auth_backend
 
