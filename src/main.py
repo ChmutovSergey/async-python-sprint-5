@@ -7,7 +7,7 @@ from config.config import settings
 from config.logger import logger
 
 app = FastAPI(
-    title=settings.PROJECT_NAME,
+    title=settings.project_name,
     default_response_class=ORJSONResponse,
 )
 
@@ -18,6 +18,6 @@ if __name__ == '__main__':
     logger.info('Server started.')
     uvicorn.run(
         'main:app',
-        host=settings.API_HOST,
-        port=settings.API_PORT,
+        host=settings.api.host,
+        port=settings.api.port,
     )

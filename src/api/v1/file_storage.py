@@ -44,7 +44,7 @@ async def save_file(
     logger.info('Save file.')
     id_ = uuid.uuid4()
     filename = in_file.filename
-    out_file_path = rf'{settings.FILE_FOLDER}{id_}'
+    out_file_path = rf'{settings.file_folder}{id_}'
     file_path = rf'{path}/{filename}'
     size = 0
 
@@ -105,7 +105,7 @@ async def download_file(
     file_model = query[0]
 
     return FileResponse(
-        rf'{settings.FILE_FOLDER}{id_}',
+        rf'{settings.file_folder}{id_}',
         media_type='application/octet-stream',
         filename=file_model.name
     )

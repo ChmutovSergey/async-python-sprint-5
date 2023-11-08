@@ -5,9 +5,13 @@ from pydantic import BaseSettings, PostgresDsn, validator
 SENTRY_DSN_TEST = ''
 
 
-class Settings(BaseSettings):
-    PROJECT_NAME: str = 'Async python sprint-5'
+class APISettings(BaseSettings):
+    host: str = '0.0.0.0'
+    port: int = 8000
 
+
+class DBSettings(BaseSettings):
+    echo: bool = True
     DB_HOST: str = 'localhost'
     DB_USER: str = 'postgres'
     DB_PASSWORD: str = 'postgres'
@@ -22,12 +26,7 @@ class Settings(BaseSettings):
     TEST_DB_PORT: int = 5432
     TEST_DB_URL: PostgresDsn | str = ''
 
-    API_HOST: str = '0.0.0.0'
-    API_PORT: int = 8000
-
-    FILE_FOLDER: str = 'files/'
-
-    @validator('DB_URL', pre=True)
+    @validator('url', pre=True)
     def assemble_db_connection(cls, value: str | None, values: dict[str, Any]) -> Any:
         if isinstance(value, str) and value != '':
             return value
@@ -40,7 +39,7 @@ class Settings(BaseSettings):
             path=f'/{values.get("DB_NAME") or ""}',
         )
 
-    @validator('TEST_DB_URL', pre=True)
+    @validator('test_url', pre=True)
     def assemble_test_db_connection(cls, value: str | None, values: dict[str, Any]) -> Any:
         if isinstance(value, str) and value != '':
             return value
@@ -52,6 +51,14 @@ class Settings(BaseSettings):
             port=str(values.get('TEST_DB_PORT')),
             path=f'/{values.get("TEST_DB_NAME") or ""}',
         )
+
+
+class Settings(BaseSettings):
+    project_name: str = 'Async python sprint-5'
+    file_folder: str = 'files/'
+
+    api = APISettings()
+    db = DBSettings()
 
 
 settings = Settings()

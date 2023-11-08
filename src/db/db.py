@@ -8,8 +8,8 @@ from src.config.config import settings
 
 def create_engine() -> AsyncEngine:
     return create_async_engine(
-        settings.DB_URL,
-        echo=True,
+        settings.db.url,
+        echo=settings.db.echo,
         future=True
     )
 

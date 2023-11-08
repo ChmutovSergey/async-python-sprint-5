@@ -1,4 +1,7 @@
-class APIAnswers:
+from enum import Enum
+
+
+class APIAnswers(Enum):
     NOT_FOUND = 'Not found'
     GONE = 'Gone'
     ONE_PARAM = 'One of the fields must be filled'

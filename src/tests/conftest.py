@@ -149,8 +149,8 @@ async def drop_db(url: str, base: DeclarativeMeta) -> None:
 
 @pytest_asyncio.fixture(scope='session', autouse=True)
 async def _create_db() -> None:
-    yield await create_db(url=settings.TEST_DB_URL, base=Base)
-    await drop_db(url=settings.TEST_DB_URL, base=Base)
+    yield await create_db(url=settings.db.test_url, base=Base)
+    await drop_db(url=settings.db.test_url, base=Base)
 
 
 @pytest.fixture(scope="session")
@@ -159,7 +159,7 @@ def engine():
 
 
 def get_test_engine() -> AsyncEngine:
-    db_utils = DBUtils(url=settings.TEST_DB_URL)
+    db_utils = DBUtils(url=settings.db.test_url)
 
     return db_utils.db_engine
 

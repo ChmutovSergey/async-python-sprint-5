@@ -65,8 +65,6 @@ services:
     environment:
       # Указываем ES запуститься в одном экземпляре
       discovery.type: single-node
-    ports:
-      - 9200:9200
     volumes:
       - /tmp/esdata:/tmp/elasticsearch/data
     # Обратите внимание: не стоит использовать для ELK тот же ES, который задействован для полнотекстового поиска в вашем сервисе
